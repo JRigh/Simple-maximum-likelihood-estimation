@@ -1,5 +1,7 @@
+#-------------------------------
 # maximum likelihood estimation
 # exponential model (07.01.2023)
+#-------------------------------
 
 # generate a random sample of n = 5000 from an Exponential distribution
 # with parameter lambda = 1.75 (argument name = 'rate')
@@ -30,14 +32,16 @@ qplot(possible.lambda,
       geom = 'line',
       xlab = 'lambda',
       ylab = 'Log-Likelihood') +
-  geom_vline(xintercept = lambda_hat, color = 'red', size=1.5) +
+  geom_vline(xintercept = lambda_hat, color = 'red', size=1.1) +
+  geom_line(size = 1.1) + 
   labs(title = 'Log-Likelihood (function of lambda)',
        subtitle = "Maximum is reached at lambda = 1.744645",
        caption = "Artificial dataset of size 5000") +
-  theme(axis.text=element_text(size=8),
-        axis.title=element_text(size=9),
-        plot.subtitle=element_text(size=8, face="italic", color="darkred"))
-theme_light()
+  theme(axis.text = element_text(size = 8),
+        axis.title = element_text(size = 10),
+        plot.subtitle = element_text(size = 9, face="italic", color="darkred"),
+        panel.background = element_rect(fill = "white", colour = "grey50"),
+        panel.grid.major = element_line(colour = "grey90"))
 
 #----
 # end
