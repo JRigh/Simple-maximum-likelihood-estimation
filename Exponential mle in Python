@@ -1,0 +1,37 @@
+# maximum likelihood estimation
+# exponential model (07.01.2023)
+
+from scipy import stats
+import numpy as np
+
+# generate a sample of size 5000
+# in numpy, the parametrization is different from R
+np.random.seed(1986)
+n = 5000
+Lambda = 1.75 # true value of the parameter, that we wish to estimate
+xi = np.random.exponential(scale = 1/Lambda, size = n)
+print(xi)
+# [0.48077598 0.04599578 0.53583846 ... 0.31828503 0.05858069 0.0721613 ]
+
+# Closed-form MLE
+lambda_hat_formula = n / sum(xi)   # or 1 / statistics.mean(xi)
+lambda_hat_formula 
+# [1] 1.71848223876711
+
+def llikelihood(Lambda):  
+    # log-likelihood function
+    ll = -np.sum(stats.expon.logpdf(xi, scale = 1/Lambda))
+    return ll
+
+from scipy.optimize import minimize
+
+# Numerical approximation of the MLE using minimize()
+mle = minimize(llikelihood, 
+                   x0 = 4, 
+                   method = 'BFGS')
+print(mle.x)
+# [1.71848223]
+
+#----
+# end
+#----
