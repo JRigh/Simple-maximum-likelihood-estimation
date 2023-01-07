@@ -1,5 +1,7 @@
+#-------------------------------
 # maximum likelihood estimation
 # exponential model (07.01.2023)
+#-------------------------------
 
 from scipy import stats
 import numpy as np
@@ -31,6 +33,30 @@ mle = minimize(llikelihood,
                    method = 'BFGS')
 print(mle.x)
 # [1.71848223]
+
+# Plot the Log-Likelihood function
+import matplotlib.pyplot as plt
+
+# set a range of possible parameter values
+possiblelambda = np.linspace(start = 0, stop = 10, num = 5000)
+
+# compute the log-likelihood function for all possible parameter values
+LL = []
+for L in possiblelambda:
+    loglikelihood = np.log(L)- L * xi
+    LL.append(loglikelihood.sum())
+
+# plotting using matplotlib
+plt.plot(possiblelambda, LL, color = 'black')
+plt.axvline(x = mle.x,  color = 'red')
+plt.xlabel('lambda')
+plt.ylabel('Log-Likelihood')
+plt.title('Log-Likelihood (function of lambda)', fontsize = 15, y = 1.1, loc = 'left')
+plt.suptitle('Maximum is reached at lambda = 1.71848223', y = 0.95, color = 'darkred', x = 0.45)
+caption = 'artificial dataset of size 5000'
+plt.text(6.5,-38000, caption, fontsize = 8)
+plt.grid(color = 'whitesmoke', linestyle = '-', linewidth = 1.2)
+plt.show()
 
 #----
 # end
